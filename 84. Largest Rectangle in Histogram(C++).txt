@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& vec) {
+        int n=vec.size();
+         int nSEL[n],nSER[n];
+         next_smallest_element_to_Right(vec,n,nSER);
+         next_smallest_element_to_Left(vec,n,nSEL);
+         int Largest_Area_Histogram=INT_MIN;
+    for(int i=0;i<n;i++)
+    {
+        int tem=nSER[i]-(nSEL[i]);
+        Largest_Area_Histogram=max(Largest_Area_Histogram,(tem-1)*vec[i]);
+    }
+    return Largest_Area_Histogram;
+    }
+    void next_smallest_element_to_Right(vector<int>ar,int n,int nSER[])
+{
+    stack<int>st;
+    st.push(0);
+    for(int i=1;i<n;i++)
+    {
+        while(!st.empty()&&ar[i]<ar[st.top()])
+        {
+            int p=st.top();
+            nSER[p]=i;
+            st.pop();
+        }
+        st.push(i);
+    }
+    while(!st.empty())
+    {
+        int p=st.top();
+        nSER[p]=n;
+        st.pop();
+    }
+}
+void next_smallest_element_to_Left(vector<int>ar,int n,int nSEL[])
+{
+    stack<int>st;
+    st.push(n-1);
+    for(int i=n-2;i>=0;i--)
+    {
+        while(!st.empty()&&ar[i]<ar[st.top()])
+        {
+            int p=st.top();
+            nSEL[p]=i;
+            st.pop();
+        }
+        st.push(i);
+    }
+    while(!st.empty())
+    {
+        int p=st.top();
+        nSEL[p]=-1;
+        st.pop();
+    }
+}
+};
