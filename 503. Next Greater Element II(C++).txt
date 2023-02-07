@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& ar) {
+    int n=ar.size();
+    for(int i=0;i<n;i++)ar.push_back(ar[i]);
+    stack<int>st;
+    st.push(0);
+    for(int i=1;i<ar.size();i++)
+    {
+        while(!st.empty()&&ar[i]>ar[st.top()])
+        {
+            int p=st.top();
+            ar[p]=ar[i];
+            st.pop();
+        }
+        st.push(i);
+    }
+    while(!st.empty())
+    {
+        int p=st.top();
+        ar[p]=-1;
+        st.pop();
+    }
+    vector<int>ans;
+    for(int i=0;i<n;i++)ans.push_back(ar[i]);
+    return ans;
+    }
+};
