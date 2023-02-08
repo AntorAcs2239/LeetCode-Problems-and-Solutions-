@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& ar, int target) {
+        for(int i=0,j=ar.size()-1;i<j;)
+        {
+            if(ar[i]+ar[j]>target){
+                j--;
+            }
+            else if(ar[i]+ar[j]<target)i++;
+            else 
+            {
+                ar.clear();
+                ar.push_back(i+1);
+                ar.push_back(j+1);
+                break;
+            }
+        }
+        return ar;
+    }
+};

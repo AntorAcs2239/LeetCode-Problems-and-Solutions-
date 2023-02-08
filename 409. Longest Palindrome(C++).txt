@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        map<char,int>fre;
+        for(int i=0;i<s.size();i++)
+        {
+            fre[s[i]]++;
+        }
+        int ans=0;
+        bool flag=false;
+        for(auto x:fre)
+        {
+            if(x.second%2==0)
+            {
+                ans+=x.second;
+            }
+            else 
+            {
+                if(!flag)ans+=x.second,flag=true;
+                else ans+=x.second-1;
+            }
+        }
+        return ans;
+    }
+};

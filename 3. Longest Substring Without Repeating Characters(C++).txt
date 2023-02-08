@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int ans=INT_MIN;
+        unordered_map <char,int>fre;
+        int i,j;
+        for( i=0,j=0;j<s.size();)
+        {
+            int t=s[j]-'a';
+            if(fre[t])
+            {
+                ans=max(ans,j-i);
+                while(fre[t])
+                {
+                    t=s[i]-'a';
+                    fre[t]--;
+                    i++;
+                }
+            }
+            else j++,fre[t]++;
+        }
+        ans=max(ans,j-i);
+        return ans;
+    }
+};
