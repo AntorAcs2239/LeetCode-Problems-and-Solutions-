@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& ar) {
+        int xr=0;
+        for(int i=0;i<ar.size();i++)
+        {
+            xr=xr^ar[i];
+        }
+        return xr;
+    }
+};
