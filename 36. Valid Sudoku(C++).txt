@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for(int i=0;i<7;i+=3)
+        {
+            for(int j=0;j<7;j+=3)
+            {
+                int fre[10]={0};
+                for(int p=i;p<i+3;p++)
+                {
+                    for(int q=j;q<j+3;q++)
+                    {
+                        if(board[p][q]!='.')
+                        {
+                        int x=++fre[(int)board[p][q]-'0'];
+                        if(x>1)return false;
+                        }
+                    }
+                }
+            }
+        }
+        for(int i=0;i<9;i++)
+        {
+            int fre[10]={0};
+            for(int j=0;j<9;j++)
+          {
+              if(board[i][j]!='.')
+              {
+                  int x=++fre[board[i][j]-'0'];
+                  if(x>1)return false;
+              }
+          }
+        }
+        for(int i=0;i<9;i++)
+        {
+            int fre[10]={0};
+            for(int j=0;j<9;j++)
+          {
+              if(board[j][i]!='.')
+              {
+                  int x=++fre[board[j][i]-'0'];
+                  if(x>1)return false;
+              }
+          }
+        }
+        return true;
+    }
+    
+};
