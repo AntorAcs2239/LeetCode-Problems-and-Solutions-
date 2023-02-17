@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& ar) {
+       int ans=ar.size()+1;
+       int si=ar.size();
+        for(int i=0;i<ar.size();i++)
+        {
+            if(ar[i]!=i+1)
+            {
+                int a=ar[i];
+                int b=-1;
+                while(a>0&&a<=si&&ar[a-1]!=a)
+                {
+                    b=ar[a-1];
+                    ar[a-1]=a;
+                    a=b;
+                }
+            }
+        }
+        for(int i=0;i<ar.size();i++)
+        {
+            if(i+1!=ar[i])
+            {
+                ans=i+1;
+                break;
+            }
+        }
+        return ans;
+    }
+};
+or
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& ar) {
+        int ans=ar.size()+1;
+        int si=ar.size();
+        for(int i=0;i<si;i++)
+        {
+                while(ar[i]>0&&ar[i]<=si&&ar[ar[i]-1]!=ar[i])
+                {
+                    swap(ar[i],ar[ar[i]-1]);
+                }
+        }
+        for(int i=0;i<si;i++)
+        {
+           if(ar[i]!=i+1)
+           {
+               ans=i+1;
+               break;
+           }
+        }
+        return ans;
+    }
+};
