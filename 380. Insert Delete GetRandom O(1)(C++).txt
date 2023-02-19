@@ -1,0 +1,44 @@
+class RandomizedSet {
+public:
+    unordered_map<int,int>mp;
+    int i=1;
+    vector<int>vec;
+    RandomizedSet() {
+        
+    }
+    bool insert(int val) {
+        bool flag=false;
+        if(mp.find(val)==mp.end())
+        {
+            flag=true;
+            mp[val]=i;
+            vec.push_back(val);
+            i++;
+        }
+        return flag;
+    }
+    bool remove(int val) {
+        bool flag=false;
+        if(i>=0&&mp.find(val)!=mp.end())
+        {
+            int idx=mp[val];
+            swap(vec[idx-1],vec[vec.size()-1]);
+            mp[vec[idx-1]]=idx;
+            vec.pop_back();
+            mp.erase(val);
+            i--;
+            flag=true;
+        }
+       return flag;
+    }
+    int getRandom() {
+       return vec[rand()%vec.size()];
+    }
+};
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet* obj = new RandomizedSet();
+ * bool param_1 = obj->insert(val);
+ * bool param_2 = obj->remove(val);
+ * int param_3 = obj->getRandom();
+ */
