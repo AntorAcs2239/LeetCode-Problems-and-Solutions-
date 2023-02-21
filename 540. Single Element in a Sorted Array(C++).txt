@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& ar) {
+        int left=0,right=ar.size()-1;
+        int n=ar.size();
+        int mid;
+        while(left<=right)
+        {
+            mid=(left+right)/2;
+            if(mid+1<n&&ar[mid+1]==ar[mid])
+            {
+                mid++;
+                int a=n-mid-1;
+                if(a&1)
+                    left=mid+1;
+                else right=mid-2;
+            }
+            else if(mid-1>=0&&ar[mid-1]==ar[mid])
+            {
+                mid--;
+                int a=n-mid;
+                if(a&1)left=mid+2;
+                else right=mid-1;
+            }
+            else break;
+        }
+        return ar[mid];
+    }
+};
