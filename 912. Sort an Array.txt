@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        return mergesort(nums);
+    }
+    vector<int> mergesort(vector<int>vec)
+    {
+        if(vec.size()==1)
+        {
+            return vec;
+        }
+        int s=vec.size()/2;
+        vector<int>m1,m2;
+        for(int i=0;i<s;i++)
+        {
+            m1.push_back(vec[i]);
+        }
+        for(int i=s;i<vec.size();i++)
+        {
+            m2.push_back(vec[i]);
+        }
+        m1=mergesort(m1);
+        m2=mergesort(m2);
+        vector<int>ans;
+        int i=0,j=0,k=0;
+        while(i<vec.size())
+        {
+            if(j==m1.size())
+            {
+                vec[i]=m2[k];
+                k++;
+                i++;
+                continue;
+            }
+            if(k==m2.size())
+            {
+                vec[i]=m1[j];
+                j++;
+                i++;
+                continue;
+            }
+            if(m1[j]<m2[k])
+            {
+                vec[i]=m1[j];
+                j++;
+                i++;
+            }
+            else 
+            {
+                vec[i]=m2[k];
+                k++;
+                i++;
+            }
+        }
+        return vec;
+    }
+};
