@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& ar) {
+        int n=ar.size();
+        int ans=0;
+        int j=0;
+        for(int i=1;i<n;)
+        {
+            while(i<n&&(ar[i]>ar[i-1]))
+            {
+                i++;
+            }
+            ans+=ar[i-1]-ar[j];
+            j=i;
+            i++;
+        }
+        return ans;
+    }
+};
