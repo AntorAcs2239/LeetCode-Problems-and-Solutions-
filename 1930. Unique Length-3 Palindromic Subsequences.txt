@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        int first[500],last[500];
+        for(int i=0;i<500;i++)first[i]=-1,last[i]=-1;
+        for(int i=0;i<s.size();i++)
+        {
+            last[s[i]-'a']=i;
+        }
+         for(int i=s.size()-1;i>=0;i--)
+        {
+            first[s[i]-'a']=i;
+        }
+        int ans=0;
+        for(char ch='a';ch<='z';ch++)
+        {
+            int t=ch-'a';
+            if(first[t]!=-1)
+            {
+                unordered_set<char>st;
+                for(int j=first[t]+1;j<=last[t]-1;j++)
+                {
+                    st.insert(s[j]);
+                }
+                ans+=st.size();
+            }
+        }
+        return ans;
+
+    }
+};
