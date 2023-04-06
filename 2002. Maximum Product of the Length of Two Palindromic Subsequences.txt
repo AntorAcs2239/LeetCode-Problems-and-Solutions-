@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int maxProduct(string s) {
+        int t=s.size();
+        int m=(1<<t)-1;
+        vector<pair<string,int>>vec;
+        for(int i=1;i<=m;i++)
+        {
+            int tem=i;
+            int j=0;
+            string str;
+            while(tem>0)
+            {
+                if(tem&1)
+                {
+                    str+=s[j];
+                }
+                j++;
+                tem=tem/2;
+            }
+            if(ispalindrome(str))
+            {
+                vec.push_back({str,i});
+            }
+        }
+        int ans=0;
+        for(int i=0;i<vec.size();i++)
+        {
+            for(int j=i+1;j<vec.size();j++)
+            {
+                int t1=vec[i].second;
+                int t2=vec[j].second;
+                string x=vec[i].first;
+                string y=vec[j].first;
+                if((t1&t2)==0)
+                {
+                    int a=x.size()*y.size();
+                    ans=max(ans,a);
+                }
+            }
+        }
+        return ans;
+    }
+    bool ispalindrome(string s)
+    {
+        for(int i=0,j=s.size()-1;i<=j;i++,j--)
+        {
+            if(s[i]!=s[j])return false;
+        }
+        return true;
+    }
+};
