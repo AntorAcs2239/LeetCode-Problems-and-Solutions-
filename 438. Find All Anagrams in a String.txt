@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        unordered_map<char,int>mp;
+        vector<int>ans;
+        int n1=s.size();
+        int n2=p.size();
+        for(int i=0;i<n2;i++)
+        {
+            mp[p[i]]++;
+        }
+        int i=0,j=0;
+        unordered_map<char,int>tem;
+        for(int i=0;i<n2;i++)
+        {
+            tem[s[i]]++;
+        }
+        bool flag=true;
+        for(auto x:mp)
+        {
+            if(tem[x.first]!=x.second)
+            {
+                flag=false;
+                break;
+            }
+        }
+        if(flag)ans.push_back(0);
+        for(int i=0,j=n2;j<n1;i++,j++)
+        {
+            flag=true;
+            tem[s[i]]--;
+            tem[s[j]]++;
+            for(auto x:mp)
+            {
+               if(tem[x.first]!=x.second)
+               {
+                flag=false;
+                break;
+               }
+            }
+            if(flag)ans.push_back(i+1);
+        }
+        return ans;
+    }
+};
