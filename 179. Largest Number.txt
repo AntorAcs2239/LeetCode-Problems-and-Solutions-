@@ -11,6 +11,8 @@ static bool cmp(string a,string b)
             vec.push_back(to_string(ar[i]));
         }
         sort(vec.begin(),vec.end(),cmp);
+        string s=vec[0];
+        if(s[0]=='0')return "0";
         string ans;
         for(auto x:vec)ans+=x;
         return ans;

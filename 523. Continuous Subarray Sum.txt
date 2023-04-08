@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& ar, int k) {
+        int n=ar.size();
+        if(n==1)return false;
+        if(k==1)return true;
+        unordered_map<int,int>mp;
+        mp[ar[0]%k]=0;
+        int t=ar[0]%k;
+        for(int i=1;i<n;i++)
+        {
+            t=(t+ar[i])%k;
+            if(t==0||(mp.find(t)!=mp.end()&&(mp[t]!=i-1)))return true;
+            else if(mp.find(t)==mp.end())mp[t]=i;
+        }
+        return false;
+    }
+};
