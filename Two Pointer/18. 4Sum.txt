@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& ar, int target) {
+        int n=ar.size();
+        sort(ar.begin(),ar.end());
+        vector<vector<int>>ans;
+        set<vector<int>>st;
+        for(int i=0;i<n-3;i++)
+        {
+            for(int j=i+1;j<n-2;j++)
+            {
+                long long x=ar[i]+ar[j];
+                for(int k=j+1,l=n-1;k<l;)
+                {
+                   long long p=ar[k]+ar[l];
+                   long long need=target-x;
+                   if(p<need)k++;
+                   else if(p>need)l--;
+                   else 
+                   {
+                       st.insert({ar[i],ar[j],ar[k],ar[l]});
+                       k++,l--;
+                   }
+                }
+            }
+        }
+        for(auto x:st)ans.push_back(x);
+        return ans;
+    }
+};

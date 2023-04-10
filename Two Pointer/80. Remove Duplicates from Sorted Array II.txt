@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& ar) {
+        int c=0;
+        int n=ar.size();
+        int v=1e5;
+        int s=0;
+        for(int i=0;i<n;)
+        {
+            int t=ar[i];
+            while(i<n&&ar[i]==t)
+            {
+                c++;
+                if(c>2)
+                {
+                    ar[i]=v;
+                }
+                i++;
+            }
+            s+=min(2,c);
+            c=0;
+        }
+        for(int i=0,j=0;j<n&&i<n;)
+        {
+            if(ar[i]!=v)
+            {
+                i++,j++;
+            }
+            else 
+            {
+                while(j<n&&ar[j]==v)
+                {
+                    j++;
+                }
+               if(j!=n)swap(ar[i],ar[j]);
+                i++,j++;
+            }
+        }
+        return s;
+    }
+};
+
+
+//Another Solution
+class Solution {
+public:
+    int removeDuplicates(vector<int>& ar) {
+       int n=ar.size();
+       int idx=0;
+       int c=1;
+       for(int i=1;i<n;i++)
+       {
+           if(ar[i]==ar[i-1])c++;
+           else c=1;
+           if(c<=2)
+           {
+               ar[idx]=ar[i];
+               idx++;
+           }
+       }
+       return idx;
+    }
+};
