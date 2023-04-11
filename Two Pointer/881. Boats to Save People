@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numRescueBoats(vector<int>& ar, int limit) {
+        int ans=0;
+        sort(ar.begin(),ar.end());
+        int n=ar.size();
+        for(int i=0,j=n-1;i<=j;)
+        {
+            if(ar[i]+ar[j]<=limit)
+            {
+                ans++;
+                i++,j--;
+            }
+            else
+            {
+                ans++;
+                j--;
+            }
+        }
+        return ans;
+    }
+};

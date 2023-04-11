@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int numSubseq(vector<int>& ar, int target) {
+        int n=ar.size();
+        sort(ar.begin(),ar.end());
+        long long ans=0;
+        int p1=1000000007;
+        for(int i=0;i<n;i++)
+        {
+            int x=target-ar[i];
+            if(x<ar[i])break;
+            int p=upper_bound(ar.begin()+i,ar.end(),x)-ar.begin();
+            ans+=power(2,(p-i-1),p1);
+            //cout<<ar[i]<<" "<<x<<" "<<p<<" "<<ans<<endl;
+        }
+        return ans%p1;
+    }
+    long long power(long long x,  long long y,int p)
+    {
+    long long res = 1;     
+    x = x % p; 
+    if (x == 0) return 0; 
+    while (y > 0)
+    {
+        if (y & 1)
+            res = (res*x) % p;
+        y = y>>1; 
+        x = (x*x) % p;
+    }
+    return res;
+    }
+};

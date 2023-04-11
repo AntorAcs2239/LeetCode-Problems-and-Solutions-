@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minimumDifference(vector<int>& ar, int k) {
+        sort(ar.begin(),ar.end());
+        int n=ar.size();
+        int ans=INT_MAX;
+        ans=min(ans,ar[k-1]-ar[0]);
+        for(int i=1,j=k;j<n;i++,j++)
+        {
+            ans=min(ans,ar[j]-ar[i]);
+        }
+        return ans;
+    }
+};
