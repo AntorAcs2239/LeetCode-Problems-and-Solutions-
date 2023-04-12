@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maxFrequency(vector<int>& ar, int k) {
+        long long ans=1;
+        int n=ar.size();
+        sort(ar.begin(),ar.end());
+        long long s=ar[0];
+        for(int i=0,j=0;i<n&&j<n;)
+        {
+            long long t=j-i+1;
+            long long m=ar[j]*t;
+            m-=s;
+            //cout<<t<<" "<<m<<endl;
+            if(m<=k)
+            {
+                ans=max(ans,t);
+                j++;
+                if(j==n)break;
+                s+=ar[j];
+            }
+            else 
+            {
+                s-=ar[i];
+                i++;
+                if(i==n)break;
+            }
+        }
+        return ans;
+    }
+};
