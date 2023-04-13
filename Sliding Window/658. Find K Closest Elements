@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& ar, int k, int x) {
+        map<int,vector<int>>mp;
+        int n=ar.size();
+        for(int i=0;i<n;i++)
+        {
+            int m=abs(ar[i]-x);
+            mp[m].push_back(ar[i]);
+        }
+        vector<int>ans;
+        for(auto x:mp)
+        {
+            vector<int>tem=x.second;
+            for(auto x:tem)
+            {
+                if(k>0)ans.push_back(x),k--;
+            }
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};

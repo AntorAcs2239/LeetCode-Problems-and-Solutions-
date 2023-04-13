@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& ar) {
+        int n=ar.size();
+        int ans=n;
+        bool flag=false;
+        long long sum=ar[0];
+        for(int i=0,j=0;i<n&&j<n;)
+        {
+            if(sum<target)
+            {
+                j++;
+                if(j==n)break;
+                sum+=ar[j];
+            }
+            else 
+            {
+                flag=true;
+                ans=min(ans,j-i+1);
+                sum-=ar[i];
+                i++;
+                if(i==n)break;
+            }
+        }
+        if(flag)return ans;
+        return 0;
+    }
+};
