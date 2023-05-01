@@ -1,0 +1,29 @@
+class Solution {
+public:
+vector<string>ans;
+    vector<string> generateParenthesis(int n) {
+        generate("",0,0,2*n);
+        return ans;
+    }
+    void generate(string s,int open,int close,int n)
+    {
+        if((open==n/2)&&(close==n/2))
+        {
+            //cout<<tem<<endl;
+            ans.push_back(s);
+            return;
+        }
+        if(open<n/2)
+        {
+            s+='(';
+            generate(s,open+1,close,n);
+            s.pop_back();
+        }
+        if(close<open)
+        {
+            s+=')';
+            generate(s,open,close+1,n);
+            s.pop_back();
+        }
+    }
+};
