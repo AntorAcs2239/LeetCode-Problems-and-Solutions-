@@ -1,0 +1,109 @@
+//My First Solution
+class Solution {
+public:
+    void rotate(vector<vector<int>>& ar) {
+        int n=ar[0].size();
+        int x=n/2;
+        n--;
+        for(int p=0;p<x;p++)
+        {
+            int mxr=n-p;
+            int mxc=n-p;
+            int mnr=p;
+            int mnc=p;
+            for(int a=mnr;a<mxr;a++)
+            {
+                int i=p;
+                int j=a;
+                int tem=ar[i][j];
+                int temi;
+                int temj;
+                int temv;
+                for(int k=1;k<=4;k++)
+                {
+                    int nd=mxr-mnr;
+                    if(i==mxr&&j==mxc)
+                    {
+                         temi=mxr;
+                         temj=mnc;
+                         temv=ar[temi][temj];
+                         i=temi;
+                         j=temj;
+                         ar[i][j]=tem;
+                         tem=temv;
+                    }
+                    else if(i==mnr&&j==mnc)
+                    {
+                        temi=i;
+                        temj=mxc;
+                        temv=ar[temi][temj];
+                        i=temi;
+                        j=temj;
+                        ar[i][j]=tem;
+                        tem=temv;
+                    }
+                    else if(i==mxr&&j!=mnc)
+                    {
+                        temj=mnc;
+                        nd-=j-mnc;
+                        temi=i-nd;
+                        temv=ar[temi][temj];
+                        i=temi;
+                        j=temj;
+                        ar[i][j]=tem;
+                        tem=temv;
+                    }
+                    else if(i==mnr&&j!=mxc)
+                    {
+                        temj=mxc;
+                        nd-=mxc-j;
+                        temi=i+nd;
+                        temv=ar[temi][temj];
+                        i=temi;
+                        j=temj;
+                        ar[i][j]=tem;
+                        tem=temv;
+                    }
+                    else if(j==mxc)
+                    {
+                        temi=mxr;
+                        nd-=mxr-i;
+                        temj=j-nd;
+                        temv=ar[temi][temj];
+                        i=temi;
+                        j=temj;
+                        ar[i][j]=tem;
+                        tem=temv;
+                    }
+                    else if(j==mnc)
+                    {
+                        temi=mnr;
+                        nd-=i-mnr;
+                        temj=j+nd;
+                        temv=ar[temi][temj];
+                        i=temi;
+                        j=temj;
+                        ar[i][j]=tem;
+                        tem=temv;
+                    }
+                }
+            }
+        }
+    }
+};
+//With the help of others
+class Solution {
+public:
+    void rotate(vector<vector<int>>& ar) {
+        reverse(ar.begin(),ar.end());
+        int n=ar.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                //cout<<i<<" "<<j<<endl;
+                swap(ar[i][j],ar[j][i]);
+            }
+        }
+    }
+};
