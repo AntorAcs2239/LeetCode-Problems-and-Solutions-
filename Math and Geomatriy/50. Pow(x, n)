@@ -1,0 +1,42 @@
+class Solution {
+public:
+    double myPow(double x, int n) {
+        double a=abs(x);
+        int p=abs(n);
+        double res=1;
+        while(p>0)
+        {
+            if(p%2==1)
+            {
+                res=res*a;
+            }
+            p=p/2;
+            a=a*a;
+        }
+        if(n>=0)
+        {
+            if(n%2)
+            {
+                if(x<0)
+                {
+                    return -res;
+                }
+                else res;
+            }
+            else return res;
+        }
+        else 
+        {
+            n=abs(n);
+            if(n%2)
+            {
+                if(x<0)
+                {
+                   res=-res;
+                }
+            }
+            return 1/res;
+        }
+        return res;
+    }
+};
