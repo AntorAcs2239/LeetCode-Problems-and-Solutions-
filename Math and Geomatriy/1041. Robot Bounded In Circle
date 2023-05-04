@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool isRobotBounded(string s) {
+        int a=0,b=0;
+        char d='N';
+        for(int i=1;i<=100;i++)
+        {
+            
+            for(int j=0;j<s.size();j++)
+            {
+                if(s[j]=='G')
+                {
+                    if(d=='N')b++;
+                    if(d=='S')b--;
+                    if(d=='E')a++;
+                    if(d=='W')a--;
+                }
+               else if(s[j]=='L')
+                {
+                    if(d=='N')d='W';
+                    else if(d=='S')d='E';
+                    else if(d=='E')d='N';
+                    else if(d=='W')d='S';
+                }
+               else if(s[j]=='R')
+                {
+                    if(d=='N')d='E';
+                    else if(d=='S')d='W';
+                    else if(d=='E')d='S';
+                    else if(d=='W')d='N';
+                }
+                //cout<<a<<" "<<b<<" "<<d<<endl;
+            }
+            //cout<<endl;
+            //cout<<a<<" "<<b<<" "<<d<<endl;
+            if(a==0&&b==0)return true;
+        }
+        return false;
+    }
+};
