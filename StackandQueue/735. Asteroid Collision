@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& ar) {
+        vector<int>st;
+        for(int i=0;i<ar.size();i++)
+        {
+            if(st.size()==0)
+            {
+                st.push_back(ar[i]);
+            }
+            else 
+            {
+                int t=ar[i];
+                int t2=st.back();
+                if(t2<0||(t>=0&&t2>=0))
+                {
+                    st.push_back(ar[i]);
+                    continue;
+                }
+                bool flag=false;
+                while(st.size()>0)
+                {
+                    t2=st.back();
+                    if(t2<0)
+                    {
+                        st.push_back(ar[i]);
+                        flag=true;
+                        break;
+                    }
+                    if(abs(t)<abs(t2))
+                    {
+                        flag=true;
+                        break;
+                    }
+                    if(abs(t)==abs(t2))
+                    {
+                        st.pop_back();
+                        flag=true;
+                        break;
+                    }
+                    st.pop_back();
+                }
+                if(!flag)st.push_back(t);
+            }
+        }
+        return st;
+    }
+};
