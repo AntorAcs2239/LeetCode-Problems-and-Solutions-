@@ -1,0 +1,58 @@
+class Solution {
+public:
+    string removeDuplicates(string s, int k){
+        stack<pair<char,int>>st;
+        vector<pair<char,int>>vec;
+        int c=1;
+        for(int i=1;i<s.size();i++)
+        {
+            if(s[i]==s[i-1])
+            {
+                c++;
+            }
+            else 
+            {
+                vec.push_back({s[i-1],c});
+                c=1;
+            }
+        }
+        vec.push_back({s[s.size()-1],c});
+        for(auto x:vec)
+        {
+            if(!st.empty()&&(st.top().first==x.first))
+            {
+                int a=st.top().second+x.second;
+                if(k<a)
+                {
+                    st.pop();
+                    if(a%k)st.push({x.first,a%k});
+                }
+                else if(k==a)
+                {
+                    st.pop();
+                }
+                else 
+                {
+                    st.pop();
+                    st.push({x.first,a});
+                }
+            }
+            else if(x.second!=k)
+            {
+               if(x.second%k)st.push({x.first,x.second%k});
+            }
+        }
+        string ans;
+        while(!st.empty())
+        {
+            char ch=st.top().first;
+            int a=st.top().second;
+            string tem;
+            for(int i=1;i<=a;i++)tem+=ch;
+            ans+=tem;
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
