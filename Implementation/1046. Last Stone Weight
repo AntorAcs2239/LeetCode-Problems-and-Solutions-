@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& ar) {
+        while(1)
+        {
+            sort(ar.begin(),ar.end());
+            if(ar.size()==1)break;
+            int a=ar[ar.size()-1];
+            int b=ar[ar.size()-2];
+            ar.pop_back();
+            ar.pop_back();
+            ar.push_back(a-b);
+        }
+        return ar[0];
+    }
+};
