@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& ar, int target) {
+        int a=lower_bound(ar.begin(),ar.end(),target)-ar.begin();
+        int b=upper_bound(ar.begin(),ar.end(),target)-ar.begin();
+        vector<int>ans;
+        if(a==b)
+        {
+            ans.push_back(-1);
+            ans.push_back(-1);
+        }
+        else 
+        {
+            ans.push_back(a);
+            ans.push_back(b-1);
+        }
+        return ans;
+    }
+};
