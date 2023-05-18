@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int countCompleteComponents(int n, vector<vector<int>>& edges) {
+        vector<int>graph[n+5];
+        int e=edges.size();
+        int vis[n+5];
+        for(int i=0;i<e;i++)
+        {
+            int u=edges[i][0];
+            int v=edges[i][1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        for(int i=0;i<=n;i++)vis[i]=0;
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==0&&graph[i].size()>0)
+            {
+                
+                //BFS
+                vector<int>vertices;
+                queue<int>q;
+                q.push(i);
+                vis[i]=1;
+                vertices.push_back(i);
+                while(!q.empty())
+                {
+                    int f=q.front();
+                    q.pop();
+                    for(auto x:graph[f])
+                    {
+                        if(vis[x]==0)
+                        {
+                            vis[x]=1;
+                            q.push(x);
+                            vertices.push_back(x);
+                        }
+                    }
+                }
+                //BFS
+
+                //check for complete connected components
+                bool flag=true;
+                int s=vertices.size();
+                for(int j=0;j<s;j++)
+                {
+                    if(graph[vertices[j]].size()!=s-1)
+                    {
+                        flag=false;
+                        break;
+                    }
+                }
+                if(flag)ans++;
+                //check for complete connected components
+            }
+            else if(vis[i]==0) ans++;
+        }
+        return ans;
+    }
+};
