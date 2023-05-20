@@ -1,0 +1,38 @@
+class Solution {
+public:
+    long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
+        int n=roads.size();
+        vector<int>graph[n+5];
+        for(int i=0;i<n;i++)
+        {
+            int u=roads[i][0];
+            int v=roads[i][1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        int vis[n+5];
+        long long subtsize[n+5];
+        for(int i=0;i<=n;i++)
+        {
+            vis[i]=0;
+            subtsize[i]=0;
+        }
+        dfs(graph,vis,subtsize,0);
+        long long ans=0;
+        for(int i=1;i<=n;i++)
+        {
+           ans+=(subtsize[i]+seats-1)/seats;
+        }
+        return ans;
+    }
+    void dfs(vector<int>graph[],int vis[],long long subtsize[],int start){
+        vis[start]=1;
+        subtsize[start]+=1;
+        for(auto child:graph[start])
+        {
+            if(vis[child])continue;
+            dfs(graph,vis,subtsize,child);
+            subtsize[start]+=subtsize[child];
+        }
+    }
+};
