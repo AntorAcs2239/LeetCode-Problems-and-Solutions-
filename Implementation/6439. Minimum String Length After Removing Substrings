@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int minLength(string s) {
+        for(int i=1;i<=100;i++)
+        {
+            if(s.size()==2)
+            {
+                if(s[0]=='A'&&s[1]=='B')return 0;
+                else if(s[0]=='C'&&s[1]=='D')return 0;
+                else return 2;
+            }
+            s=tem(s);
+            //cout<<s<<endl;
+        }
+        return s.size();
+    }
+    string tem(string s)
+    {
+        string t="";
+        bool flag=true;
+        for(int i=0;i<s.size()-1;i++)
+        {
+            if(s[i]=='A'&&s[i+1]=='B')
+            {
+                for(int j=0;j<i;j++)t+=s[j];
+                for(int j=i+2;j<s.size();j++)t+=s[j];
+                flag=false;
+                break;
+            }
+                        if(s[i]=='C'&&s[i+1]=='D')
+            {
+                for(int j=0;j<i;j++)t+=s[j];
+                for(int j=i+2;j<s.size();j++)t+=s[j];
+                            flag=false;
+                break;
+            }
+            
+        }
+        if(!flag)
+        {
+            if(t.size()==0)return "";
+            else return t;
+        }
+        else return s;
+    }
+};
