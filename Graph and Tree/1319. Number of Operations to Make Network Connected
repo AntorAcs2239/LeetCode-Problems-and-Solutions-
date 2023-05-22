@@ -1,0 +1,101 @@
+// My First Solve
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& con) {
+        vector<int>graph[n+5];
+        for(int i=0;i<con.size();i++)
+        {
+            int u=con[i][0];
+            int v=con[i][1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        int numofCP=0;
+        int freeedge=0;
+        int vis[n+5];
+        for(int i=0;i<=n;i++)vis[i]=0;
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==0)
+            {
+                numofCP++;
+                queue<int>q;
+                q.push(i);
+                vis[i]=1;
+                vector<int>ver;
+                ver.push_back(i);
+                while(!q.empty())
+                {
+                    int f=q.front();
+                    q.pop();
+                    for(auto x:graph[f])
+                    {
+                        if(vis[x]==0)
+                        {
+                            vis[x]=1;
+                            q.push(x);
+                            ver.push_back(x);
+                        }
+                    }
+                }
+                sort(ver.begin(),ver.end());
+                int x1=0;
+                for(int j=0;j<ver.size();j++)
+                {
+                   for(auto x:graph[ver[j]])
+                   {
+                       if(x>ver[j])x1++;
+                   } 
+                }
+               // cout<<x1<<endl;
+                x1=x1-ver.size()+1;
+                freeedge+=x1;
+            }
+        }
+       // cout<<numofCP<<endl;
+        if(freeedge<numofCP-1)return -1;
+        return numofCP-1;
+    }
+};
+//With help of others
+class Solution {
+public:
+    int makeConnected(int n, vector<vector<int>>& con) {
+        if(con.size()<n-1)return -1;
+        vector<int>graph[n+5];
+        for(int i=0;i<con.size();i++)
+        {
+            int u=con[i][0];
+            int v=con[i][1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        int numofCP=0;
+        int vis[n+5];
+        for(int i=0;i<=n;i++)vis[i]=0;
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==0)
+            {
+                numofCP++;
+                queue<int>q;
+                q.push(i);
+                vis[i]=1;
+                while(!q.empty())
+                {
+                    int f=q.front();
+                    q.pop();
+                    for(auto x:graph[f])
+                    {
+                        if(vis[x]==0)
+                        {
+                            vis[x]=1;
+                            q.push(x);
+                        }
+                    }
+                }
+            }
+        }
+        return numofCP-1;
+    }
+};
