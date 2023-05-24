@@ -1,0 +1,44 @@
+class Solution
+{
+public:
+    vector<int> maxSlidingWindow(vector<int> &ar, int k)
+    {
+        int n = ar.size();
+        int left_max[n], right_max[n];
+        int t = n % k;
+        int mx = INT_MIN;
+        for (int i = 0; i < n; i++)
+        {
+            mx = max(mx, ar[i]);
+            left_max[i] = mx;
+            if (i % k == k - 1)
+            {
+                mx = INT_MIN;
+            }
+        }
+        mx = INT_MIN;
+        for (int i = n - 1; i >= n - t; i--)
+        {
+            mx = max(mx, ar[i]);
+            right_max[i] = mx;
+        }
+        mx = INT_MIN;
+        int p = 1;
+        for (int i = n - t - 1; i >= 0; i--)
+        {
+            mx = max(mx, ar[i]);
+            right_max[i] = mx;
+            if (p % k == 0)
+            {
+                mx = INT_MIN;
+            }
+            p++;
+        }
+        vector<int> ans;
+        for (int i = 0; i <= n - k; i++)
+        {
+            ans.push_back(max(left_max[i + k - 1], right_max[i]));
+        }
+        return ans;
+    }
+};
