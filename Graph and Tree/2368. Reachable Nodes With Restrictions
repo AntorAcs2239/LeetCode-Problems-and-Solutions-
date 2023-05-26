@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
+        vector<int>graph[n+5];
+        int e=edges.size();
+        int rs=restricted.size();
+        int vis[n+5];
+        for(int i=0;i<=n;i++)vis[i]=0;
+        for(int i=0;i<rs;i++)vis[restricted[i]]=1;
+        for(int i=0;i<e;i++)
+        {
+            int u=edges[i][0];
+            int v=edges[i][1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        queue<int>q;
+        q.push(0);
+        vis[0]=1;
+        int ans=1;
+        while(!q.empty())
+        {
+            int f=q.front();
+            q.pop();
+            for(auto x:graph[f])
+            {
+                if(vis[x]==0)
+                {
+                    vis[x]=1;
+                    q.push(x);
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
