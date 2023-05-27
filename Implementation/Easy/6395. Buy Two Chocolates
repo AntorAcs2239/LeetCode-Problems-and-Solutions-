@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int buyChoco(vector<int>& p, int m) {
+        int n=p.size();
+        int ans=INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int sum=p[i]+p[j];
+                if(sum<=m)
+                {
+                    ans=max(ans,m-sum);
+                }
+            }
+        }
+        if(ans==INT_MIN)return m;
+        return ans;
+    }
+};

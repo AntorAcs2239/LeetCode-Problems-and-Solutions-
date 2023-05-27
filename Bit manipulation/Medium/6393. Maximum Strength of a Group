@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long maxStrength(vector<int>& nums) {
+        int n=nums.size();\
+        long long ans=INT_MIN;
+        for(int i = 1 ; i <= ((1 <<n) - 1) ; i++){
+            int j=0;
+            long long tem=1;
+            int x=i;
+            while(x>0)
+            {
+                if(x&1)
+                {
+                    tem=tem*nums[j];
+                }
+                j++;
+                x=x>>1;
+            }
+            ans=max(ans,tem);
+          }
+        return ans;
+    }
+};
