@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int minFlips(int a, int b, int c) {
+        string x,y,z;
+        while(a>0)
+        {
+            char ch=(a%2)+'0';
+            x+=ch;
+            a=a/2;
+        }
+         while(b>0)
+        {
+            char ch=(b%2)+'0';
+            y+=ch;
+            b=b/2;
+        }
+         while(c>0)
+        {
+            char ch=(c%2)+'0';
+            z+=ch;
+            c=c/2;
+        }
+        int s1=x.size();
+        int s2=y.size();
+        int s3=z.size();
+        int m=max({s1,s2,s3});
+        for(int i=1;i<=m-s1;i++)x+='0';
+        for(int i=1;i<=m-s2;i++)y+='0';
+        for(int i=1;i<=m-s3;i++)z+='0';
+        reverse(x.begin(),x.end());
+        reverse(y.begin(),y.end());
+        reverse(z.begin(),z.end());
+        int ans=0;
+        for(int i=0;i<m;i++)
+        {
+            if(z[i]=='0')
+            {
+                if(x[i]=='1')ans++;
+                if(y[i]=='1')ans++;
+            }
+            else 
+            {
+                if(x[i]=='0'&&y[i]=='0')ans++;
+            }
+        }
+        return ans;
+    }
+
+};

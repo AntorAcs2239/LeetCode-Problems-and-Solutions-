@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int minTime(int n, vector<vector<int>>& edges, vector<bool>& has) {
+        int subtsi[n+5];
+        int ans[n+5];
+        for(int i=0;i<=n;i++)subtsi[i]=0,ans[i]=0;
+        vector<int>tree[n+5];
+        int e=edges.size();
+        for(int i=0;i<e;i++)
+        {
+            int u=edges[i][0];
+            int v=edges[i][1];
+            tree[u].push_back(v);
+            tree[v].push_back(u);
+        }
+        countsubt(tree,subtsi,0,has,-1);
+        anscount(tree,subtsi,0,-1,has,ans);
+        return ans[0];
+    }
+    void countsubt(vector<int>tree[],int subtsi[],int source,vector<bool>&has,int p)
+    {
+        if(has[source])subtsi[source]=1;
+        for(auto child:tree[source])
+        {
+            if(child==p)continue;
+            countsubt(tree,subtsi,child,has,source);
+            subtsi[source]+=subtsi[child];
+        }
+    }
+    void anscount(vector<int>tree[],int subtsi[],int source,int p,vector<bool>has,int ans[])
+    {
+        for(auto child:tree[source])
+        {
+            if(child==p||!subtsi[child])continue;
+            ans[source]+=2;
+            anscount(tree,subtsi,child,source,has,ans);
+            ans[source]+=ans[child];
+        }
+    }
+};
