@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int r=grid.size();
+        int c=grid[0].size();
+        int rmov=r-1;
+        int cmov=0;
+        int ans=0;
+        while(rmov>=0&&cmov<c)
+        {
+            if(grid[rmov][cmov]<0)
+            {
+                ans+=c-cmov;
+                rmov--;
+            }
+            else cmov++;
+        }
+        return ans;
+    }
+};
