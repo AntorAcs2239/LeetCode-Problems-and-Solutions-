@@ -1,0 +1,15 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& l, char target) {
+        int i=0;
+        for(int j=0;j<l.size();j++)
+        {
+            if(l[j]>target)
+            {
+                i=j;
+                break;
+            }
+        }
+        return l[i];
+    }
+};

@@ -1,0 +1,46 @@
+//Taking Help of others
+
+//Recursion Approach
+class Solution {
+public:
+    int numTrees(int n) {
+        if(n<=1)return 1;
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            ans+=numTrees(i-1)*numTrees(n-i);
+        }
+        return ans;
+    }
+};
+//DP Recursive approach
+class Solution {
+public:
+int pre[20];
+    int numTrees(int n) {
+        if(n<=1)return 1;
+        if(pre[n])return pre[n];
+        for(int i=1;i<=n;i++)
+        {
+           pre[n]+=numTrees(i-1)*numTrees(n-i);
+        }
+        return pre[n];
+    }
+};
+//Tabulation approach
+class Solution {
+public:
+int pre[20];
+    int numTrees(int n) {
+       pre[0]=1;
+       pre[1]=1;
+       for(int i=2;i<=n;i++)
+       {
+           for(int j=1;j<=i;j++)
+           {
+               pre[i]+=pre[j-1]*pre[i-j];
+           }
+       }
+       return pre[n];
+    }
+};
