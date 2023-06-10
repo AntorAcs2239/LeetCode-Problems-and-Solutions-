@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isFascinating(int n) {
+        int p1=2*n;
+        int q1=3*n;
+        string p;
+        p+=to_string(n);
+        p+=to_string(p1);
+        p+=to_string(q1);
+        map<int,int>mp;
+        for(auto x:p)mp[x-'0']++;
+        for(int i=1;i<=9;i++)
+        {
+            if(mp[i]<1||mp[i]>1)return false;
+        }
+        return true;
+    }
+};
