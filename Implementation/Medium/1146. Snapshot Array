@@ -1,0 +1,29 @@
+class SnapshotArray {
+public:
+int s=0;
+vector<vector<pair<int,int>>>vec;
+    SnapshotArray(int length) {
+        vec.resize(length);
+    }
+    void set(int index, int val) {
+       if(vec[index].size()>0&&vec[index].back().first==s)vec[index].back().second=val;
+       else vec[index].push_back({s,val});
+    }
+    int snap() {
+        s++;
+        return s-1;
+    }
+    int get(int index, int snap_id) {
+        int idx=upper_bound(vec[index].begin(),vec[index].end(),make_pair(snap_id,INT_MAX))-vec[index].begin();
+        if(idx==0)return 0;
+        return vec[index][idx-1].second;
+    }
+};
+
+/**
+ * Your SnapshotArray object will be instantiated and called as such:
+ * SnapshotArray* obj = new SnapshotArray(length);
+ * obj->set(index,val);
+ * int param_2 = obj->snap();
+ * int param_3 = obj->get(index,snap_id);
+ */
