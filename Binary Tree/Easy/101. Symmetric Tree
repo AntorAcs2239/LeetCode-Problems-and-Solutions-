@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        queue<TreeNode*>q;
+        q.push(root);
+        int l=0;
+        while(!q.empty())
+        {
+            int qs=q.size();
+            l++;
+            for(int i=1;i<=qs;i++)
+            {
+                auto x=q.front();
+                q.pop();
+                if(x->left)q.push(x->left);
+                if(x->right)q.push(x->right);
+            }
+        }
+        q.push(root);
+        while(!q.empty())
+        {
+            int qs=q.size();
+            l--;
+            vector<int>tem;
+            for(int i=1;i<=qs;i++)
+            {
+                auto x=q.front();
+                q.pop();
+                tem.push_back(x->val);
+                if(x->left)q.push(x->left);
+                else if(l>0)
+                {
+                    TreeNode* tem1=new TreeNode(-101);
+                    q.push(tem1);
+                }
+                if(x->right)q.push(x->right);
+                else if(l>0)
+                {
+                    TreeNode* tem1=new TreeNode(-101);
+                    q.push(tem1);
+                }
+            }
+            for(int i=0,j=tem.size()-1;i<=j;i++,j--)
+            {
+                if(tem[i]!=tem[j])return false;
+            }
+        }
+        return true;
+    }
+};
