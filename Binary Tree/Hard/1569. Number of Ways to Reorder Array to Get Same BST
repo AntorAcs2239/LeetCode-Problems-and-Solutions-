@@ -1,0 +1,36 @@
+class Solution {
+public:
+vector<vector<long long>>pascal;
+    int numOfWays(vector<int>& nums) {
+        int n=nums.size();
+        pascal.resize(n+1);
+        long mod=1000000007;
+        for(int i=0;i<n;i++)
+        {
+            pascal[i]=vector<long long>(i+1,1);
+            for(int j=1;j<i;j++)
+            pascal[i][j]=((pascal[i-1][j-1]%mod)+(pascal[i-1][j])%mod)%mod;       
+        }
+       
+        return ans(nums,mod)-1;
+    }
+    long ans(vector<int>&nums,long mod)
+    {
+        int n=nums.size();
+        if(n<=2)return 1;
+        vector<int>leftSub,rightSub;
+        for(int i=1;i<n;i++)
+        {
+            if(nums[i]<nums[0])leftSub.push_back(nums[i]);
+            else rightSub.push_back(nums[i]);
+        }
+        long long leftAns=ans(leftSub,mod);
+        long long rightAns=ans(rightSub,mod);
+
+        long long leftLen=leftSub.size();
+        long long rightLen=rightSub.size();
+        long long tem=((pascal[n-1][leftLen]%mod)*(leftAns%mod))%mod;
+        tem=(tem*rightAns)%mod;
+        return tem%mod;
+    }
+};
