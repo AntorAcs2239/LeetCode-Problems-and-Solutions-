@@ -1,0 +1,34 @@
+class Solution {
+public:
+int solve(int curIdx,int LeftVal,vector<int>&arr1,vector<int>&arr2,int n,vector<unordered_map<int,int>>&dp)
+{
+    if(curIdx==n)return 0;
+    if(dp[curIdx].find(LeftVal)!=dp[curIdx].end())return dp[curIdx][LeftVal];
+    int res1,res2;
+    if(arr1[curIdx]>LeftVal)
+    {
+        res1=solve(curIdx+1,arr1[curIdx],arr1,arr2,n,dp);
+    }
+    else res1=INT_MAX;
+    int pos=upper_bound(arr2.begin(),arr2.end(),LeftVal)-arr2.begin();
+    if(pos==arr2.size())res2=INT_MAX;
+    else
+    {
+        res2=solve(curIdx+1,arr2[pos],arr1,arr2,n,dp);
+    }
+    if(res2==INT_MAX)
+    {
+        dp[curIdx][LeftVal]=res1;
+    }
+    else dp[curIdx][LeftVal]=min(res1,res2+1);
+    return dp[curIdx][LeftVal];
+}
+int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
+    sort(arr2.begin(),arr2.end());
+    int n=arr1.size();
+    vector<unordered_map<int,int>>dp(2001);
+    int ans=solve(0,INT_MIN,arr1,arr2,n,dp);
+    if(ans==INT_MAX)return -1;
+    return ans;
+}
+};
