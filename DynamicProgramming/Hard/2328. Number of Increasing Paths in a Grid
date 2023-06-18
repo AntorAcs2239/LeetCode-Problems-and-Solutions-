@@ -1,0 +1,29 @@
+class Solution {
+public:
+int mod=1000000007;
+    int countPaths(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        long long ans=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                ans+=solve(i,j,-1,dp,grid,n,m)%mod;
+            }
+        }
+        return ans%mod;
+    }
+    int solve(int i,int j,int pre,vector<vector<int>>&dp,vector<vector<int>>&grid,int n,int m)
+    {
+        if(i<0||j<0||i>=n||j>=m||grid[i][j]<=pre)return 0;
+        if(dp[i][j]!=-1)return dp[i][j];
+        int top=solve(i-1,j,grid[i][j],dp,grid,n,m);
+        int down=solve(i+1,j,grid[i][j],dp,grid,n,m);
+        int left=solve(i,j-1,grid[i][j],dp,grid,n,m);
+        int right=solve(i,j+1,grid[i][j],dp,grid,n,m);
+        dp[i][j]=(1+top+down+left+right)%mod;
+        return dp[i][j];
+    }
+};
