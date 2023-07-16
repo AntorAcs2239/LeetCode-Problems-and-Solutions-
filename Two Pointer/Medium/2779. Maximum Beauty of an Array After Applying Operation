@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int maximumBeauty(vector<int>& ar, int k) {
+        int ans=0;
+        int n=ar.size();
+        sort(ar.begin(),ar.end());
+        for(int left=0,right=0;right<n;right++)
+        {
+            if(ar[right]-ar[left]>2*k)left++;
+            else ans=max(ans,right-left+1);
+        }
+        return ans;
+    }
+};

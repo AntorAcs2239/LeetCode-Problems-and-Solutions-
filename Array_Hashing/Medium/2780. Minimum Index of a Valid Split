@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minimumIndex(vector<int>& ar) {
+        map<int,int>m1,m2;
+        int n=ar.size();
+        for(int i=0;i<n;i++)
+        {
+            m1[ar[i]]++;
+        }
+        int ans=-1;
+        for(int i=0;i<n;i++)
+        {
+            m2[ar[i]]++;
+            int x=m2[ar[i]];
+            int y=m1[ar[i]]-m2[ar[i]];
+            int a=i+1;
+            int b=n-(i+1);
+            if((x*2>a)&&(y*2>b))
+            {
+                ans=i;
+                break;
+            }
+        }
+        return ans;
+    }
+};
