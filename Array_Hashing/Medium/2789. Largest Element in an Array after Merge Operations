@@ -1,0 +1,19 @@
+class Solution {
+public:
+    long long maxArrayValue(vector<int>& ar) {
+        int n=ar.size();
+        long long ans=0;
+        long long t=ar[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            if(ar[i]<=t)t+=ar[i];
+            else 
+            {
+                ans=max(ans,t);
+                t=ar[i];
+            }
+        }
+        ans=max(ans,t);
+        return ans;
+    }
+};
