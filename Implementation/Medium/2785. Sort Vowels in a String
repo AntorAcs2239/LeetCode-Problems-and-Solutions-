@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        string vowel;
+        vector<int>idx;
+        for(int i=0;i<s.size();i++)
+        {
+            char ch=tolower(s[i]);
+            if(ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u')vowel+=s[i],idx.push_back(i);
+        }
+        sort(vowel.begin(),vowel.end());
+        for(int i=0;i<idx.size();i++)
+        {
+            s[idx[i]]=vowel[i];
+        }
+        return s;
+    }
+};
