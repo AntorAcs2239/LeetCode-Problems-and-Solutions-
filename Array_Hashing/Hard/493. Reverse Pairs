@@ -1,0 +1,66 @@
+class Solution {
+public:
+void merge(vector<int>&ar,int low,int mid,int high)
+{
+    vector<int>tem;
+    int left = low, right = mid + 1;
+    while(left<=mid&&right<=high)
+    {
+        if(ar[left]<=ar[right])
+        {
+            tem.push_back(ar[left]);
+            left++;
+        }
+        else 
+        {
+            tem.push_back(ar[right]);
+            right++;
+        }
+    }
+    while(left<=mid)
+    {
+        tem.push_back(ar[left]);
+        left++;
+    }
+    while(right<=high)
+    {
+        tem.push_back(ar[right]);
+        right++;
+    }
+    for(int i=low;i<=high;i++)
+    {
+        ar[i]=tem[i-low];
+    }
+}
+int countpair(vector<int>&ar,int low,int mid,int high)
+{
+    int right=mid+1;
+    int ans=0;
+    for(int left=low;left<=mid;left++)
+    {
+        while((right<=high))
+        {
+            long long a=ar[right];
+            long long b=ar[left];
+            if(b>a*2)right++;
+            else break;
+        }
+        ans+=right-mid-1;
+    }
+    return ans;
+}
+int mergesort(vector<int>&ar,int low,int high)
+{
+    int ans = 0;
+    if(low>=high)return ans;
+    int mid=(low+high)/2;
+    ans+=mergesort(ar,low,mid);
+    ans+=mergesort(ar,mid+1,high);
+    ans+=countpair(ar,low,mid,high);
+    merge(ar, low, mid, high);
+    return ans;
+}
+    int reversePairs(vector<int>& nums) {
+        return mergesort(nums,0,nums.size()-1);
+    }
+};
