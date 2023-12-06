@@ -1,0 +1,39 @@
+//C++ Code
+class Solution {
+public:
+    int totalMoney(int n) {
+        int cur=1;
+        int start=1;
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            ans+=cur;
+            if(i%7==0)
+            {
+                start++;
+                cur=start;
+            }
+            else cur++;
+        }
+        return ans;
+    }
+};
+//Java Code
+class Solution {
+    public int totalMoney(int n) {
+        int cur=1;
+        int start=1;
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            ans+=cur;
+            if(i%7==0)
+            {
+                start++;
+                cur=start;
+            }
+            else cur++;
+        }
+        return ans;
+    }
+}
