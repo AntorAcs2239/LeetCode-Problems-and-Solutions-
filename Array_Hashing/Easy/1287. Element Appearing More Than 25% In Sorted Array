@@ -1,0 +1,45 @@
+//C++ Code
+class Solution {
+public:
+    int findSpecialInteger(vector<int>& arr) {
+        double per=0;
+        int n=arr.size();
+        double cnt=1;
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]==arr[i-1])cnt++;
+            else 
+            {
+                per=(cnt/n)*100;
+                if(per>25)
+                {
+                    return arr[i-1];
+                }
+                cnt=1;
+            }
+        }
+        return arr[n-1];
+    }
+};
+//Java Code
+class Solution {
+    public int findSpecialInteger(int[] arr) {
+        double per=0;
+        int n=arr.length;
+        double cnt=1;
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]==arr[i-1])cnt++;
+            else 
+            {
+                per=(cnt/n)*100;
+                if(per>25)
+                {
+                    return arr[i-1];
+                }
+                cnt=1;
+            }
+        }
+        return arr[n-1];
+    }
+}

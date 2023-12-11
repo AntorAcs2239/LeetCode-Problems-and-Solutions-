@@ -1,0 +1,32 @@
+//C++
+class Solution {
+public:
+    int longestSubarray(vector<int>& ar, int limit) {
+        multiset<int>st;
+        int n=ar.size();
+        int ans=0;
+        for(int i=0,j=0;j<n;j++)
+        {
+            st.insert(ar[j]);
+            int a=*(st.begin());
+            int b=*(st.rbegin());
+            //cout<<a<<" "<<b<<endl;
+            if(abs(a-b)>limit)
+            {
+                st.erase(st.find(ar[i]));
+                i++;
+            }
+            else 
+            {
+                ans=max(ans,(int)st.size());
+            }
+        }
+        int a=*st.begin();
+        int b=*st.rbegin();
+        if(abs(a-b)>limit)
+        {
+            ans=max(ans,(int)st.size());
+        }
+        return ans;
+    }
+};

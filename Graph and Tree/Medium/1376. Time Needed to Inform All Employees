@@ -1,0 +1,52 @@
+//C++ Code
+class Solution {
+public:
+    int ans=0;
+    int numOfMinutes(int n, int headID, vector<int>& m, vector<int>& info) {
+        vector<vector<int>>graph(n);
+        for(int i=0;i<n;i++)
+        {
+            if(m[i]!=-1)graph[m[i]].push_back(i);
+        }
+        dfsAns(headID,info,graph,0);
+        return ans;
+    }
+    void dfsAns(int head,vector<int>&info,vector<vector<int>>&graph,int sum)
+    {
+        sum+=info[head];
+        ans=max(ans,sum);
+        for(auto child:graph[head])
+        {
+            dfsAns(child,info,graph,sum);
+        }
+    }
+};
+//Java
+class Solution {
+    int ans=0;
+    public int numOfMinutes(int n, int headID, int[] m, int[] info) {
+        List<Integer>graph[]=new ArrayList[n];
+        for(int i=0;i<n;i++)
+        {
+            graph[i]=new ArrayList<>();
+        }
+        for(int i=0;i<n;i++)
+        {
+           if(m[i]!=-1)
+           {
+               graph[m[i]].add(i);
+           }
+        }
+        dfsAns(headID,info,graph,0);
+        return ans;
+    }
+    void dfsAns(int head,int[]info,List<Integer>graph[],int sum)
+    {
+        sum+=info[head];
+        ans=Math.max(sum,ans);
+        for(Integer x:graph[head])
+        {
+            dfsAns(x,info,graph,sum);
+        }
+    }
+}
