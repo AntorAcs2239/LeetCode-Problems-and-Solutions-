@@ -1,0 +1,19 @@
+class Solution {
+public:
+    
+    int mp[10005];
+    bool hasGroupsSizeX(vector<int>& ar) {
+        int n=ar.size();
+        for(int i=0;i<n;i++)mp[ar[i]]++;
+        int cnt=0;
+        for(int i=0;i<n;i++)
+        {
+            if(mp[ar[i]])
+            {
+                cnt=__gcd(cnt,mp[ar[i]]);
+            }
+        }
+        if(cnt==1)return false;
+        return true;
+    }
+};
