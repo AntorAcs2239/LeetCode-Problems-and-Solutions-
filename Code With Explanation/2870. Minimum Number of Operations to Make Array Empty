@@ -1,0 +1,35 @@
+#include <vector>
+#include <unordered_map>
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        // Get the size of the input vector
+        int n = nums.size();
+        
+        // Create an unordered map to store the count of each unique element
+        unordered_map<int, int> mp;
+        
+        // Count the occurrences of each element in the vector
+        for (int i = 0; i < n; i++) {
+            mp[nums[i]]++;
+        }
+        
+        // Initialize a variable to store the total number of operations
+        int ans = 0;
+        
+        // Iterate through the elements and calculate the total operations needed
+        for (auto v : mp) {
+            // If an element occurs only once, it's not possible to make all vector empty
+            if (v.second == 1) {
+                return -1;
+            }
+            
+            // Calculate the total operations needed for the current element
+            ans += (v.second + 2) / 3;
+        }
+        
+        // Return the total number of operations
+        return ans;
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        // Get the length of the input array
+        int n = nums.length;
+        
+        // Initialize index variable to 1, as the first element is always included
+        int idx = 1;
+        
+        // Initialize a counter for duplicate elements
+        int cnt = 1;
+        // Iterate through the array starting from the second element (index 1)
+        for (int i = 1; i < n; i++) {
+            // Check if the current element is equal to the previous one
+            if (nums[i] == nums[i - 1]) {
+                // If yes, increment the duplicate counter
+                cnt++;
+            } else {
+                // If not, reset the duplicate counter to 1
+                cnt = 1;
+            }
+            // Check if the number of duplicates for the current element is less than or equal to 2
+            if (cnt <= 2) {
+                // If yes, update the array with the current element at the current index
+                nums[idx] = nums[i];
+                // Increment the index for the next unique or at most twice duplicated element
+                idx++;
+            }
+        }
+        // Return the length of the updated array (up to index 'idx')
+        return idx;
+    }
+}

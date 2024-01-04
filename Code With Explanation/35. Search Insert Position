@@ -1,0 +1,37 @@
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        // Get the length of the input array
+        int n = nums.length;
+        
+        // Initialize low and high pointers for binary search
+        int low = 0, high = n - 1;
+        
+        // Initialize the index variable to 0
+        int idx = 0;
+        
+        // Perform binary search
+        while (low <= high) {
+            // Calculate the middle index
+            int mid = (low + high) / 2;
+            
+            // Check if the middle element is equal to the target
+            if (nums[mid] == target) {
+                // If yes, return the index of the middle element
+                return mid;
+            } else if (nums[mid] < target) {
+                // If the middle element is less than the target
+                // Update the index and move the low pointer to mid + 1
+                idx = mid + 1;
+                low = mid + 1;
+            } else {
+                // If the middle element is greater than the target
+                // Move the high pointer to mid - 1
+                high = mid - 1;
+            }
+        }
+        
+        // If the target is not found, return the updated index
+        // This represents the position where the target should be inserted
+        return idx;
+    }
+}

@@ -1,0 +1,70 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // Get the number of rows in the matrix
+        int n = matrix.length;
+        
+        // Get the number of columns in the matrix
+        int m = matrix[0].length;
+        
+        // Initialize pointers i and j to the top-right corner of the matrix
+        int i = 0, j = m - 1;
+        
+        // Perform a search starting from the top-right corner
+        while (i < n && j >= 0) {
+            // Check if the current element is equal to the target
+            if (matrix[i][j] == target) {
+                // If yes, return true as the target is found
+                return true;
+            } else if (matrix[i][j] > target) {
+                // If the current element is greater than the target, move left in the same row
+                j--;
+            } else {
+                // If the current element is less than the target, move down to the next row
+                i++;
+            }
+        }
+        
+        // If the while loop terminates without finding the target, return false
+        return false;
+    }
+}
+
+//Another
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // Get the number of rows in the matrix
+        int n = matrix.length;
+        
+        // Get the number of columns in the matrix
+        int m = matrix[0].length;
+        
+        // Initialize low and high pointers for binary search in the flattened matrix
+        int low = 0, high = (n * m) - 1;
+        
+        // Perform binary search in the flattened matrix
+        while (low <= high) {
+            // Calculate the middle index in the flattened matrix
+            int mid = (low + high) / 2;
+            
+            // Calculate the corresponding row and column in the original matrix
+            int row = mid / m;
+            int col = mid % m;
+            
+            // Check if the element at the calculated position is equal to the target
+            if (matrix[row][col] == target) {
+                // If yes, return true as the target is found
+                return true;
+            } else if (matrix[row][col] > target) {
+                // If the current element is greater than the target, adjust the high pointer
+                high = mid - 1;
+            } else {
+                // If the current element is less than the target, adjust the low pointer
+                low = mid + 1;
+            }
+        }
+        
+        // If the while loop terminates without finding the target, return false
+        return false;
+    }
+}
+
