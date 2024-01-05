@@ -1,0 +1,28 @@
+class Solution {
+    public int maxArea(int[] height) {
+        // Initialize the variable 'ans' to store the maximum area
+        int ans = 0;
+        
+        // Get the length of the input array
+        int n = height.length;
+        
+        // Use two pointers, 'i' for the left side and 'j' for the right side
+        for (int i = 0, j = n - 1; i < j;) {
+            // Calculate the minimum height between the two lines
+            int minHeight = Math.min(height[i], height[j]);
+            
+            // Calculate the area formed by the two lines and update 'ans' if needed
+            ans = Math.max(ans, minHeight * (j - i));
+            
+            // Move the pointers towards the center
+            if (height[i] < height[j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        
+        // Return the maximum area
+        return ans;
+    }
+}
