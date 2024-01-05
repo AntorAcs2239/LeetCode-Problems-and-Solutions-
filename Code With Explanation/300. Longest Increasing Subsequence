@@ -1,0 +1,137 @@
+
+//Binary Search(Java)
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        // Create a list to store the Longest Increasing Subsequence
+        List<Integer> LIS = new ArrayList<>();
+        
+        // Get the length of the input array
+        int n = nums.length;
+        
+        // Initialize the LIS list with the first element of the array
+        LIS.add(nums[0]);
+        
+        // Initialize variables to keep track of the last element in LIS, and the count of elements in LIS
+        int last = nums[0];
+        int cnt = 1;
+        
+        // Iterate through the array starting from the second element
+        for (int i = 1; i < n; i++) {
+            // If the current element is greater than the last element in LIS
+            if (nums[i] > last) {
+                // Add the current element to LIS
+                LIS.add(nums[i]);
+                
+                // Update the last element and increment the count
+                last = nums[i];
+                cnt++;
+            } else {
+                // If the current element is not greater than the last element in LIS
+                // Perform binary search to find the position to insert the current element in LIS
+                int low = 0, high = cnt - 1;
+                int pos = 0;
+                while (low <= high) {
+                    int mid = (low + high) / 2;
+                    
+                    // Update the position if the current element is greater than LIS[mid]
+                    if (LIS.get(mid) < nums[i]) {
+                        low = mid + 1;
+                    } else {
+                        high = mid - 1;
+                    }
+                }
+                
+                // Set the value at position 'low' in LIS to the current element
+                LIS.set(low, nums[i]);
+                
+                // If the current element is inserted at the end of LIS, update the last element
+                if (low == cnt - 1) {
+                    last = nums[i];
+                }
+            }
+        }
+        
+        // Return the size of the LIS list, which represents the length of the LIS
+        return LIS.size();
+    }
+}
+
+
+//Binary Search(C++)
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>LIS;
+        LIS.push_back(nums[0]);
+        for(int i=1;i<n;i++)
+        {
+            if(nums[i]>LIS.back())LIS.push_back(nums[i]);
+            else 
+            {
+                int idx=lower_bound(LIS.begin(),LIS.end(),nums[i])-LIS.begin();
+                LIS[idx]=nums[i];
+            }
+        }
+        return LIS.size();
+    }
+};
+
+
+//DP (Java)
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        
+        // Create a 2D array 'dp' for memoization, initialized with -1
+        int[][] dp = new int[n][n + 1];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+        
+        // Call the recursive helper function LIS to find the length of LIS
+        return LIS(0, -1, nums, n, dp);
+    }
+    
+    // Recursive helper function to find the length of LIS
+    int LIS(int idx, int prevIdx, int[] nums, int n, int[][] dp) {
+        // Base case: If the index reaches the end of the array, return 0
+        if (idx == n) return 0;
+        
+        // If the result for the current state is already memoized, return it
+        if (dp[idx][prevIdx + 1] != -1) return dp[idx][prevIdx + 1];
+        
+        // Initialize the length as the result of the recursive call without including the current element
+        int length = LIS(idx + 1, prevIdx, nums, n, dp);
+        
+        // Check if including the current element in the subsequence improves the length
+        if (prevIdx == -1 || nums[idx] > nums[prevIdx]) {
+            length = Math.max(length, LIS(idx + 1, idx, nums, n, dp) + 1);
+        }
+        
+        // Memoize the result and return the length
+        return dp[idx][prevIdx + 1] = length;
+    }
+}
+
+
+//Dp(C++)
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return LIS(0,-1,nums,n,dp);
+    }
+    int LIS(int idx,int prev_idx,vector<int>&nums,int n,vector<vector<int>>&dp)
+    {
+        if(idx==n)return 0;
+        if(dp[idx][prev_idx+1]!=-1)return dp[idx][prev_idx+1];
+        int length=LIS(idx+1,prev_idx,nums,n,dp);
+        if(prev_idx==-1 || nums[idx]>nums[prev_idx])
+        {
+            length=max(length,LIS(idx+1,idx,nums,n,dp)+1);
+        }
+        return dp[idx][prev_idx+1]=length;
+    }
+};
